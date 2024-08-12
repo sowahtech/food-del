@@ -9,7 +9,7 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <img src={logo} alt="" className="logo" />
+      <img src={logo} alt="logo picture" className="logo" />
       <ul className="navbar_menu">
         <li
           onClick={() => setMenu("home")}
