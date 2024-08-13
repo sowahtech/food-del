@@ -51,23 +51,23 @@ export const assets = {
 
 export const menu_list = [
   {
-    menu_name: "burger",
+    menu_name: "Burger",
     menu_image: menu_1,
   },
   {
-    menu_name: "fried rice",
+    menu_name: "Rice",
     menu_image: menu_2,
   },
   {
-    menu_name: "jollof",
+    menu_name: "Jollof",
     menu_image: menu_3,
   },
   {
-    menu_name: "noodles",
+    menu_name: "Noodles",
     menu_image: menu_4,
   },
   {
-    menu_name: "pitza",
+    menu_name: "Pitza",
     menu_image: menu_5,
   },
   {
