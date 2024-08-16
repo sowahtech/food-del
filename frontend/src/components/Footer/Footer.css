@@ -52,3 +52,7 @@
   background-color: gray;
   border: none;
 }
+
+.footer-content-left img {
+  width: 150px;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Footer.css";
-import logo from "../../assets/logo3.png";
+import logo from "../../assets/logo.png";
 import { CiFacebook } from "react-icons/ci";
 import { TiSocialTwitterCircular } from "react-icons/ti";
 import { TiSocialLinkedinCircular } from "react-icons/ti";
@@ -39,13 +39,13 @@ const Footer = () => {
           <h2>GET IN TOUCH</h2>
           <ul>
             <li>+233 513 777 3214</li>
-            <li>contact@tomato.com</li>
+            <li>contact@oregano.com</li>
           </ul>
         </div>
       </div>
       <hr />
       <p className="footer-copyright">
-        Copyright 2024 &copy; Tomato.com All Rights Reserved
+        Copyright 2024 &copy; Oregano.com All Rights Reserved
       </p>
     </div>
   );
