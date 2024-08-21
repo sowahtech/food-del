@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./Navbar.css";
 import logo from "../../assets/logo.png";
-import { FaSearch } from "react-icons/fa";
-import { IoIosBasket } from "react-icons/io";
+import search from "../../assets/search.png";
+import cart from "../../assets/cart.png";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("home");
@@ -37,9 +37,9 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="navbar_right">
-        <FaSearch />
+        <img src={search} alt="" />
         <div className="navbar_search_icon">
-          <IoIosBasket />
+          <img src={cart} alt="" />
           <div className="dot"></div>
         </div>
         <button>sign in</button>
