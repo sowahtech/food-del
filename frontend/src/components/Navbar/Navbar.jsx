@@ -5,7 +5,7 @@ import search from "../../assets/search.png";
 import cart from "../../assets/cart.png";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
 
   return (
@@ -47,7 +47,7 @@ const Navbar = () => {
           <img src={cart} alt="" />
           <div className="dot"></div>
         </div>
-        <button>sign in</button>
+        <button onClick={() => setShowLogin(true)}>sign in</button>
       </div>
     </div>
   );
