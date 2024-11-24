@@ -39,6 +39,7 @@ const Add = ({ url }) => {
       setImage(false);
       toast.success(response.data.message);
     } else {
+      toast.error("Error");
     }
   };
 
