@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import "./List.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import PropTypes from "prop-types";
 
 const List = ({ url }) => {
-
   const [list, setList] = useState([]);
 
   const fetchList = async () => {
@@ -59,4 +59,7 @@ const List = ({ url }) => {
   );
 };
 
+List.propTypes = {
+  url: PropTypes.string.isRequired,
+};
 export default List;
