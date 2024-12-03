@@ -2,6 +2,8 @@ import logo from "./logo.png";
 import add_icon_white from "./add_icon_white.png";
 import add_icon_green from "./add_icon_green.png";
 import remove_icon_red from "./remove_icon_red.png";
+import search from "./search.png";
+import cart from "./cart.png";
 
 import menu_1 from "./burger1.jpeg";
 import menu_2 from "./fried-rice1.jpeg";
@@ -45,8 +47,17 @@ import salad2 from "./salad2.jpeg";
 import salad3 from "./salad3.jpeg";
 import salad4 from "./salad4.jpeg";
 
+import bag_icon from "./bag_icon.png";
+import logout_icon from "./logout_icon.png";
+import profile_icon from "./profile_icon.png";
+
 export const assets = {
   logo,
+  bag_icon,
+  logout_icon,
+  profile_icon,
+  search,
+  cart,
 };
 
 export const menu_list = [
