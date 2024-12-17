@@ -48,12 +48,14 @@ import salad3 from "./salad3.jpeg";
 import salad4 from "./salad4.jpeg";
 
 import bag_icon from "./bag_icon.png";
+import parcel_icon from "./parcel_icon.jpeg";
 import logout_icon from "./logout_icon.png";
 import profile_icon from "./profile_icon.png";
 
 export const assets = {
   logo,
   bag_icon,
+  parcel_icon,
   logout_icon,
   profile_icon,
   search,
