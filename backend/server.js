@@ -32,17 +32,17 @@ app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
 // Serve frontend & admin
-app.use(express.static(path.join(__dirname, "../frontend")));
-app.use("/admin", express.static(path.join(__dirname, "public/admin")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.use("/admin", express.static(path.join(__dirname, "../admin/dist")));
 
 // Frontend route
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
 // Admin route
 app.get("/admin/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/admin/index.html"));
+  res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
 });
 
 app.listen(port, () => {
