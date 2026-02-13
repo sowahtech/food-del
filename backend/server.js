@@ -7,14 +7,17 @@ import userRouter from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import path from "path";
+import { fileURLToPath } from "url";
+
+// ES module __dirname fix
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // app config
 const app = express();
-const __dirname = path.resolve();
 const port = process.env.PORT || 1000;
 
 //middleware
-
 app.use(express.json());
 app.use(cors());
 
@@ -22,37 +25,28 @@ app.use(cors());
 connectDB();
 
 // api endpoints
-
 app.use("/api/food", foodRouter);
 app.use("/images", express.static("uploads"));
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
-// Serve frontend
-app.use(express.static(path.join(__dirname, "public/frontend")))
-app.use("/admin", express.static(path.join(__dirname, "public/admin")))
+// Serve frontend & admin
+app.use(express.static(path.join(__dirname, "../frontend")));
+app.use("/admin", express.static(path.join(__dirname, "public/admin")));
 
-// app.get("/", (req, res) => {
-//   res.send("API Working");
-// });
-
-// Fallback routes
+// Frontend route
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/frontend/index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
 // Admin route
-
 app.get("/admin/*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/admin/index.html"));
 });
 
 app.listen(port, () => {
-  console.log(`Server started on http://localhost: ${port}`);
+  console.log(`Server started on http://localhost:${port}`);
 });
 
 export default app;
-//
-
-
