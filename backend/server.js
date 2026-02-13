@@ -33,16 +33,16 @@ app.use("/api/order", orderRouter);
 app.use(express.static(path.join(__dirname, "public/frontend")))
 app.use("/admin", express.static(path.join(__dirname, "public/admin")))
 
-app.get("/", (req, res) => {
-  res.send("API Working");
-});
+// app.get("/", (req, res) => {
+//   res.send("API Working");
+// });
 
 // Fallback routes
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public/frontend/index.html"));
 });
 
-// Admin fallback
+// Admin route
 
 app.get("/admin/*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/admin/index.html"));
