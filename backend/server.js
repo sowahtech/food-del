@@ -6,7 +6,7 @@ import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
-import path from "path"
+import path from "path";
 
 // app config
 const app = express();
@@ -54,3 +54,5 @@ app.listen(port, () => {
 
 export default app;
 //
+
+
