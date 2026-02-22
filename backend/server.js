@@ -35,18 +35,21 @@ app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
 // Serve frontend & admin
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
 app.use("/admin", express.static(path.join(__dirname, "../admin/dist")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+
+// Admin route
+app.get("/admin/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
+});
+
 
 // Frontend route
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
-// Admin route
-app.get("/admin/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
-});
 
 app.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
