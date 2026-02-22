@@ -1,9 +1,9 @@
 {
   "name": "food-del-monolith",
   "version": "1.0.0",
-  "scripts": {
-    "setup": "npm install --prefix backend && npm install --prefix frontend --production=false && npm install --prefix admin --production=false",
-    "build-all": "npm run build --prefix frontend && npm run build --prefix admin",
-    "start": "node backend/server.js"
-  }
+ "scripts": {
+  "setup": "npm install --prefix backend && npm install --prefix frontend --production=false && npm install --prefix admin --production=false",
+  "build-all": "npm run build --prefix frontend && npm run build --prefix admin",
+  "start": "node backend/server.js"
+}
 }
