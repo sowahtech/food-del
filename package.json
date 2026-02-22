@@ -1,0 +1,23 @@
+{
+  "name": "food-del",
+  "version": "1.0.0",
+  "description": "Created this food delivery app using a youtube video created by Great Stack.\r In coding this project, i learnt the following:\r   i. how to integrate the frontend with the backend using axios\r   ii. how to set up the stripe payment gateway in ecommerce projects\r   iii. how to use react-toastify to create notifications\r   iv. how to ensure security in web apps using password hashing, environment variables and so on\r   v. a deeper understanding of routing in both frontend and backend as well as in admin panel\r   vi. a deeper understanding of react hooks and mongoose methods.\r   vii. save images using multer package on the server.\r   viii. write clean code using assets.js file",
+  "main": "index.js",
+ "scripts": {
+  "setup": "npm install --prefix backend && npm install --prefix frontend && npm install --prefix admin",
+  "build-all": "npm run build --prefix frontend && npm run build --prefix admin",
+  "start": "node backend/server.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sowahtech/food-del.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/sowahtech/food-del/issues"
+  },
+  "homepage": "https://github.com/sowahtech/food-del#readme"
+}
