@@ -17,9 +17,15 @@ const addFood = async (req, res) => {
     await food.save();
     res.json({ success: true, message: "food added" });
   } catch (error) {
-    console.error("ERROR:", error);
-    console.error("ERROR MESSAGE:", error.message);
-    res.status(500).json({ message: error.message });
+    console.error("FULL ERROR:");
+    console.error(JSON.stringify(error, null, 2));
+    console.error("STACK:", error.stack);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Server Error",
+      error: error
+    });
   }
 };
 
