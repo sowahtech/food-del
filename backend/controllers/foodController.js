@@ -1,3 +1,5 @@
+console.log("BODY:", JSON.stringify(req.body, null, 2));
+console.log("FILE:", JSON.stringify(req.file, null, 2));
 import fs from "fs";
 import foodModel from "./../models/foodModel.js";
 
