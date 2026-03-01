@@ -5,6 +5,10 @@ import foodModel from "./../models/foodModel.js";
 
 const addFood = async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "No image uploaded. Check your field name." });
+    }
+
     let image_filename = req.file.path;
 
     const food = new foodModel({
@@ -18,14 +22,12 @@ const addFood = async (req, res) => {
     await food.save();
     res.json({ success: true, message: "food added" });
   } catch (error) {
-    console.error("Add Food Error:", error.message, error.stack);
+    console.error("Add Food Error:", error.message);
     // console.error(JSON.stringify(error, null, 2));
     // console.error("STACK:", error.stack);
-
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      message: error.message || "Server Error",
-      error: error
+      message: error.message
     });
   }
 };
