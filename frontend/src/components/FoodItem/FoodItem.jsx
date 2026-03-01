@@ -13,7 +13,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img src={`${url}/images/${FoodItem.image}`} className="food-item-image" alt="" height="200vh" />
+        <img src={FoodItem.image} className="food-item-image" alt="" height="200vh" />
         {/* <img
           className="food-item-image"
           src={url + "/images/" + image}
