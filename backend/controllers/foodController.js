@@ -18,9 +18,9 @@ const addFood = async (req, res) => {
     await food.save();
     res.json({ success: true, message: "food added" });
   } catch (error) {
-    console.error("FULL ERROR:");
-    console.error(JSON.stringify(error, null, 2));
-    console.error("STACK:", error.stack);
+    console.error("Add Food Error:", error.message, error.stack);
+    // console.error(JSON.stringify(error, null, 2));
+    // console.error("STACK:", error.stack);
 
     return res.status(500).json({
       success: false,
@@ -37,7 +37,7 @@ const listFood = async (req, res) => {
     const foods = await foodModel.find({});
     res.json({ success: true, data: foods });
   } catch (error) {
-    console.error(error);
+    console.error("List Food Error:", error.message, error.stack);
     res.json({ success: false, message: "error" });
   }
 };
@@ -52,7 +52,7 @@ const removeFood = async (req, res) => {
     await foodModel.findByIdAndDelete(req.body.id);
     res.json({ success: true, message: "Food removed" });
   } catch (error) {
-    console.error(error);
+    console.error("Remove Food Error:", error.message, error.stack);
     res.json({ success: false, message: "error" });
   }
 };
