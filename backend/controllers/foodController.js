@@ -4,38 +4,80 @@ import foodModel from "./../models/foodModel.js";
 // add food item
 
 const addFood = async (req, res) => {
-  console.log("Body Data: " + JSON.stringify(req.body, null, 2));
-  console.log("File Data: " + JSON.stringify(req.file, null, 2));
+  // 1. LOG THE INCOMING DATA IMMEDIATELY
+  console.log("--- NEW REQUEST ---");
+  console.log("Body:", JSON.stringify(req.body));
+  console.log("File:", req.file ? "File Received: " + req.file.path : "NO FILE RECEIVED");
+
   try {
     if (!req.file) {
-      return res.status(400).json({ success: false, message: "No image uploaded. Check your field name." });
+      return res.status(400).json({ success: false, message: "Image upload to Cloudinary failed." });
     }
-
-    let image_filename = req.file.path;
 
     const food = new foodModel({
       name: req.body.name,
       description: req.body.description,
-      price: req.body.price,
+      price: Number(req.body.price), // Force number to avoid Mongoose type errors
       category: req.body.category,
-      image: image_filename,
+      image: req.file.path, 
     });
 
     await food.save();
-    res.json({ success: true, message: "food added" });
+    console.log("SUCCESS: Food saved to DB");
+    return res.json({ success: true, message: "food added" });
+
   } catch (error) {
-    // This forces the object to show as readable text in Render logs
-    console.error("--- CRITICAL ERROR START ---");
-    console.error("Message:", error.message);
-    console.error("Full Object:", JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
-    console.error("--- CRITICAL ERROR END ---");
+    // THIS WILL BREAK THE [object Object] CURSE
+    console.error("--- DATABASE/SERVER ERROR ---");
+    console.error("Error Message:", error.message);
+    
+    // If it's a Mongoose Validation Error, log the specific fields that failed
+    if (error.errors) {
+      console.error("Validation Details:", JSON.stringify(error.errors, null, 2));
+    }
 
     return res.status(500).json({
       success: false,
-      message: error.message || "Unknown Server Error"
+      message: error.message || "Server Error",
+      details: error.errors ? "Check your field types (Price must be a number, etc)" : null
     });
   }
 };
+
+
+// const addFood = async (req, res) => {
+//   console.log("Body Data: " + JSON.stringify(req.body, null, 2));
+//   console.log("File Data: " + JSON.stringify(req.file, null, 2));
+//   try {
+//     if (!req.file) {
+//       return res.status(400).json({ success: false, message: "No image uploaded. Check your field name." });
+//     }
+
+//     let image_filename = req.file.path;
+
+//     const food = new foodModel({
+//       name: req.body.name,
+//       description: req.body.description,
+//       price: req.body.price,
+//       category: req.body.category,
+//       image: image_filename,
+//     });
+
+//     await food.save();
+//     res.json({ success: true, message: "food added" });
+//   } catch (error) {
+//     // This forces the object to show as readable text in Render logs
+//     console.error("--- CRITICAL ERROR START ---");
+//     console.error("Message:", error.message);
+//     console.error("Full Object:", JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
+//     console.error("--- CRITICAL ERROR END ---");
+
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message || "Unknown Server Error"
+//     });
+//   }
+// };
 
 // all food list
 
