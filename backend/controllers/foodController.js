@@ -5,9 +5,6 @@ import foodModel from "./../models/foodModel.js";
 
 const addFood = async (req, res) => {
   try {
-    console.log("BODY:", JSON.stringify(req.body, null, 2));
-    console.log("FILE:", req.file);
-
     let image_filename = `${req.file.path}`;
 
     const food = new foodModel({
