@@ -59,8 +59,9 @@ const Add = ({ url }) => {
           <input
             onChange={(e) => setImage(e.target.files[0])}
             type="file"
+            id="image"
             name="image"
-            hidden
+            style={{display:"none"}}
             required
           />
         </div>
