@@ -24,12 +24,15 @@ const addFood = async (req, res) => {
     await food.save();
     res.json({ success: true, message: "food added" });
   } catch (error) {
-    console.error("DETAILED ERROR:", error.stack || error.message || error);
-    // console.error(JSON.stringify(error, null, 2));
-    // console.error("STACK:", error.stack);
-    res.status(500).json({
+    // This forces the object to show as readable text in Render logs
+    console.error("--- CRITICAL ERROR START ---");
+    console.error("Message:", error.message);
+    console.error("Full Object:", JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
+    console.error("--- CRITICAL ERROR END ---");
+
+    return res.status(500).json({
       success: false,
-      message: error.message
+      message: error.message || "Unknown Server Error"
     });
   }
 };
