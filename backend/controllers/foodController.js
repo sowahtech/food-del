@@ -4,6 +4,8 @@ import foodModel from "./../models/foodModel.js";
 // add food item
 
 const addFood = async (req, res) => {
+  console.log("Body Data:", req.body);
+  console.log("File Data:", req.file);
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, message: "No image uploaded. Check your field name." });
