@@ -1,21 +1,23 @@
-console.log("BODY:", JSON.stringify(req.body, null, 2));
-console.log("FILE:", JSON.stringify(req.file, null, 2));
 import fs from "fs";
 import foodModel from "./../models/foodModel.js";
 
 // add food item
 
 const addFood = async (req, res) => {
-  let image_filename = `${req.file.path}`;
-
-  const food = new foodModel({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    category: req.body.category,
-    image: image_filename,
-  });
   try {
+    console.log("BODY:", JSON.stringify(req.body, null, 2));
+    console.log("FILE:", req.file);
+
+    let image_filename = `${req.file.path}`;
+
+    const food = new foodModel({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      category: req.body.category,
+      image: image_filename,
+    });
+
     await food.save();
     res.json({ success: true, message: "food added" });
   } catch (error) {
