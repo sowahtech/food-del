@@ -1,5 +1,6 @@
 import fs from "fs";
 import foodModel from "./../models/foodModel.js";
+import { uploader as cloudinary } from "../config/cloudinaryConfig.js";
 
 // add food item
 
@@ -10,16 +11,16 @@ const addFood = async (req, res) => {
   console.log("File:", req.file ? "File Received: " + req.file.path : "NO FILE RECEIVED");
 
   try {
-    if (!req.file) {
-      return res.status(400).json({ success: false, message: "Image upload to Cloudinary failed." });
-    }
+    const result = await cloudinary.upload(req.file.path, {
+      folder: "products", // Optional: organizes files in Cloudinary
+    });
 
     const food = new foodModel({
       name: req.body.name,
       description: req.body.description,
       price: Number(req.body.price), // Force number to avoid Mongoose type errors
       category: req.body.category,
-      image: req.file.path, 
+      image: result.secure_url,
     });
 
     await food.save();
@@ -30,7 +31,7 @@ const addFood = async (req, res) => {
     // THIS WILL BREAK THE [object Object] CURSE
     console.error("--- DATABASE/SERVER ERROR ---");
     console.error("Error Message:", error.message);
-    
+
     // If it's a Mongoose Validation Error, log the specific fields that failed
     if (error.errors) {
       console.error("Validation Details:", JSON.stringify(error.errors, null, 2));
