@@ -1,6 +1,6 @@
 import fs from "fs";
 import foodModel from "./../models/foodModel.js";
-import { cloudinary } from "../config/cloudinary.js";
+import { uploader } from "../config/cloudinary.js";
 
 // add food item
 
@@ -11,7 +11,7 @@ const addFood = async (req, res) => {
   console.log("File:", req.file ? "File Received: " + req.file.path : "NO FILE RECEIVED");
 
   try {
-    const result = await cloudinary.upload(req.file.path, {
+    const result = await uploader.upload(req.file.path, {
       folder: "products", // Optional: organizes files in Cloudinary
     });
 
