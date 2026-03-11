@@ -1,6 +1,6 @@
 import fs from "fs";
 import foodModel from "./../models/foodModel.js";
-import { uploader as cloudinary } from "../config/cloudinaryConfig.js";
+import { uploader as cloudinary } from "../config/cloudinary.js";
 
 // add food item
 
