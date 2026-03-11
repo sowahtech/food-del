@@ -1,6 +1,7 @@
 import { setServers } from 'node:dns/promises';
 setServers(['1.1.1.1', '8.8.8.8']);
 import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
@@ -9,7 +10,6 @@ import userRouter from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import path from "path";
-dotenv.config();
 import { fileURLToPath } from "url";
 
 // ES module __dirname fix
