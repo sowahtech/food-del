@@ -20,7 +20,7 @@ const addFood = async (req, res) => {
       description: req.body.description,
       price: Number(req.body.price), // Force number to avoid Mongoose type errors
       category: req.body.category,
-      image: result.secure_url,
+      image: req.file.path,
     });
 
     await food.save();
