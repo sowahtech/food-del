@@ -28,19 +28,17 @@ const addFood = async (req, res) => {
     return res.json({ success: true, message: "food added" });
 
   } catch (error) {
-    // THIS WILL BREAK THE [object Object] CURSE
     console.error("--- DATABASE/SERVER ERROR ---");
-    console.error("Error Message:", error.message);
 
-    // If it's a Mongoose Validation Error, log the specific fields that failed
-    if (error.errors) {
-      console.error("Validation Details:", JSON.stringify(error.errors, null, 2));
-    }
+    // This is the magic line that shows the ACTUAL error details in the terminal
+    console.dir(error, { depth: null });
+
+    // OR use this if you prefer JSON format
+    // console.log("Full Error:", JSON.stringify(error, null, 2));
 
     return res.status(500).json({
       success: false,
-      message: error.message || "Server Error",
-      details: error.errors ? "Check your field types (Price must be a number, etc)" : null
+      message: error.message || "Server Error"
     });
   }
 };
