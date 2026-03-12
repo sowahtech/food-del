@@ -5,44 +5,34 @@ import { uploader } from "../config/cloudinary.js";
 // add food item
 
 const addFood = async (req, res) => {
-  // 1. LOG THE INCOMING DATA IMMEDIATELY
   console.log("--- NEW REQUEST ---");
-  console.log("Body:", JSON.stringify(req.body));
-  console.log("File:", req.file ? "File Received: " + req.file.path : "NO FILE RECEIVED");
+  console.log("Body:", req.body);
+  console.log("File Info:", req.file); // This will now show the Cloudinary URL
 
   try {
-    const result = await uploader.upload(req.file.path, {
-      folder: "products", // Optional: organizes files in Cloudinary
-    });
+    // 1. Check if the file actually made it through Multer
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: "Image upload failed" });
+    }
 
+    // 2. Create the food item using the URL Multer already generated
     const food = new foodModel({
       name: req.body.name,
       description: req.body.description,
-      price: Number(req.body.price), // Force number to avoid Mongoose type errors
+      price: Number(req.body.price),
       category: req.body.category,
-      image: req.file.path,
+      image: req.file.path, // In CloudinaryStorage, .path is the Cloudinary URL
     });
 
     await food.save();
-    console.log("SUCCESS: Food saved to DB");
-    return res.json({ success: true, message: "food added" });
+    return res.json({ success: true, message: "Food added successfully" });
 
   } catch (error) {
-    // Use a comma, NOT a plus sign
-    console.error("--- DETAILED ERROR START ---");
-    console.error(error);
-    console.error("--- DETAILED ERROR END ---");
-
-    // This will force it to show every hidden property
-    console.log(JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
-
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      stack: error.stack
-    });
+    console.error("Database Error:", error.message);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 
 // const addFood = async (req, res) => {
