@@ -31,10 +31,10 @@ const addFood = async (req, res) => {
     console.error("--- DATABASE/SERVER ERROR ---");
 
     // This is the magic line that shows the ACTUAL error details in the terminal
-    console.dir(error, { depth: null });
+    //console.dir(error, { depth: null });
 
     // OR use this if you prefer JSON format
-    // console.log("Full Error:", JSON.stringify(error, null, 2));
+    console.log("Full Error:", JSON.stringify(error, null, 2));
 
     return res.status(500).json({
       success: false,
