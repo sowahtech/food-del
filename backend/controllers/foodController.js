@@ -28,17 +28,18 @@ const addFood = async (req, res) => {
     return res.json({ success: true, message: "food added" });
 
   } catch (error) {
-    console.error("--- DATABASE/SERVER ERROR ---");
+    // Use a comma, NOT a plus sign
+    console.error("--- DETAILED ERROR START ---");
+    console.error(error);
+    console.error("--- DETAILED ERROR END ---");
 
-    // This is the magic line that shows the ACTUAL error details in the terminal
-    //console.dir(error, { depth: null });
+    // This will force it to show every hidden property
+    console.log(JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
 
-    // OR use this if you prefer JSON format
-    console.log("Full Error:", JSON.stringify(error, null, 2));
-
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      message: error.message || "Server Error"
+      error: error.message,
+      stack: error.stack
     });
   }
 };
