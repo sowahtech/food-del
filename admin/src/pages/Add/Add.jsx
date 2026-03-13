@@ -22,6 +22,20 @@ const Add = ({ url }) => {
     setData((data) => ({ ...data, [name]: value }));
   };
 
+  const uploadImage = async (file) => {
+      const ImageFormData = new FormData();
+      ImageFormData.append("file", file);
+      ImageFormData.append("upload_preset", "food_app_preset");
+
+      const response = await axios.post(
+        "https://api.cloudinary.com",
+        ImageFormData
+      );
+
+      return response.data.secure_url; // This is the link you need!
+    };
+
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -29,14 +43,16 @@ const Add = ({ url }) => {
     formData.append("description", data.description);
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
-    formData.append("image", image);
+    //formData.append("image", image);
+
+    // handling the cloudinary image
     const response = await axios.post(`${url}/api/food/add`, formData);
     if (response.data.success) {
       setData({
         name: "",
         description: "",
         price: "",
-        category: "salad",
+        category: "burger",
       });
       setImage(false);
       toast.success(response.data.message);
@@ -57,11 +73,11 @@ const Add = ({ url }) => {
             />
           </label>
           <input
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={uploadImage}
             type="file"
             id="image"
             name="image"
-            style={{display:"none"}}
+            style={{ display: "none" }}
             required
           />
         </div>
@@ -98,7 +114,7 @@ const Add = ({ url }) => {
               <option value="salad">Salad</option>
               <option value="rolls">Rolls</option>
               <option value="cake">Cake</option>
-              
+
             </select>
           </div>
           <div className="add-price flex-col">
