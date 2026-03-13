@@ -13,13 +13,13 @@ const FoodItem = ({ id, name, price, description, image }) => {
   return (
     <div className="food-item">
       <div className="food-item-img-container">
-        <img src={FoodItem.image} className="food-item-image" alt="" height="200vh" />
-        {/* <img
+        {/* <img src={FoodItem.image} className="food-item-image" alt="" height="200vh" /> */}
+        <img
           className="food-item-image"
-          src={url + "/images/" + image}
+          src={FoodItem.image.secure_url}
           alt=""
-          height="200vh"
-        /> */}
+          height="20vh"
+        />
         {!cartItems[id] ? (
           <img
             className="add"
