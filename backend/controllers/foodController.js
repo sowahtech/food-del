@@ -5,43 +5,72 @@ import { uploader } from "../config/cloudinary.js";
 // add food item
 
 const addFood = async (req, res) => {
-  try {
-    // 1. If this doesn't log, the error is in your ROUTE/MULTER setup
-    console.log("--- DEBUG START ---");
-    console.log("Check Body:", req.body);
-    console.log("Check File:", req.file ? req.file.path : "NULL");
+    try {
+        // 1. Upload the image file to Cloudinary
+        // req.file.path comes from your Multer middleware
+        const uploadResult = await uploader.upload(req.file.path, {
+            folder: "food_items" // optional: organizes images in Cloudinary
+        });
 
-    if (!req.file) {
-      return res.status(400).json({ success: false, message: "No image provided" });
+        // 2. Create the new food item using the Cloudinary URL
+        const food = new foodModel({
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            category: req.body.category,
+            image: uploadResult.secure_url // Save the Cloudinary link, not a filename!
+        });
+
+        await food.save();
+
+        // 3. (Optional) Delete the temporary file from your local 'uploads' folder
+        fs.unlinkSync(req.file.path);
+
+        res.json({ success: true, message: "Food Added Successfully" });
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: "Error adding food" });
     }
-
-    // 2. Create the item (using the path Multer-Cloudinary already created)
-    const food = new foodModel({
-      name: req.body.name,
-      description: req.body.description,
-      price: Number(req.body.price),
-      category: req.body.category,
-      image: req.file.path, 
-    });
-
-    await food.save();
-    console.log("--- SAVE SUCCESS ---");
-    return res.json({ success: true, message: "food added" });
-
-  } catch (error) {
-    // THIS WILL FORCE THE HIDDEN DATA OUT
-    console.error("--- THE REAL ERROR IS BELOW ---");
-    console.error("Name:", error.name);
-    console.error("Msg:", error.message);
-    console.error("Stack:", error.stack);
-    
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-      type: error.name
-    });
-  }
 };
+
+// const addFood = async (req, res) => {
+//   try {
+//     // 1. If this doesn't log, the error is in your ROUTE/MULTER setup
+//     console.log("--- DEBUG START ---");
+//     console.log("Check Body:", req.body);
+//     console.log("Check File:", req.file ? req.file.path : "NULL");
+
+//     if (!req.file) {
+//       return res.status(400).json({ success: false, message: "No image provided" });
+//     }
+
+//     // 2. Create the item (using the path Multer-Cloudinary already created)
+//     const food = new foodModel({
+//       name: req.body.name,
+//       description: req.body.description,
+//       price: Number(req.body.price),
+//       category: req.body.category,
+//       image: req.file.path, 
+//     });
+
+//     await food.save();
+//     console.log("--- SAVE SUCCESS ---");
+//     return res.json({ success: true, message: "food added" });
+
+//   } catch (error) {
+//     // THIS WILL FORCE THE HIDDEN DATA OUT
+//     console.error("--- THE REAL ERROR IS BELOW ---");
+//     console.error("Name:", error.name);
+//     console.error("Msg:", error.message);
+//     console.error("Stack:", error.stack);
+    
+//     return res.status(500).json({
+//       success: false,
+//       message: error.message,
+//       type: error.name
+//     });
+//   }
+// };
 
 
 
