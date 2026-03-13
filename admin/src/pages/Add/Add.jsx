@@ -13,7 +13,7 @@ const Add = ({ url }) => {
     name: "",
     description: "",
     price: "",
-    category: "salad",
+    category: "burger",
   });
 
   const onChangeHandler = (event) => {
