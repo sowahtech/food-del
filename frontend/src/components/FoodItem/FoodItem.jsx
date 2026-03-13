@@ -16,7 +16,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
         {/* <img src={FoodItem.image} className="food-item-image" alt="" height="200vh" /> */}
         <img
           className="food-item-image"
-          src={FoodItem.image.secure_url}
+          src={`https://res.cloudinary.com{image}`}
           alt=""
           height="20vh"
         />
