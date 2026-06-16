@@ -43,10 +43,12 @@ const Add = ({ url }) => {
     formData.append("description", data.description);
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
-    //formData.append("image", image);
+    formData.append("image", file);
 
     // handling the cloudinary image
-    const response = await axios.post(`${url}/api/food/add`, formData);
+    const response = await axios.post(`${url}/api/food/add`, formData, {  headers: {
+    "Content-Type": "multipart/form-data"
+  }});
     if (response.data.success) {
       setData({
         name: "",
